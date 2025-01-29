@@ -3,7 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{87AB992E-35FC-3832-D3AD-E4FD94539FEE}|Assembly-CSharp.csproj|c:\\users\\othman\\documents\\unity opdrachten\\unityopdracht2\\assets\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{87AB992E-35FC-3832-D3AD-E4FD94539FEE}|Assembly-CSharp.csproj|c:\\users\\othman\\documents\\unity opdrachten\\unityopdracht2\\assets\\collectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87AB992E-35FC-3832-D3AD-E4FD94539FEE}|Assembly-CSharp.csproj|solutionrelative:assets\\collectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87AB992E-35FC-3832-D3AD-E4FD94539FEE}|Assembly-CSharp.csproj|C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\assets\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87AB992E-35FC-3832-D3AD-E4FD94539FEE}|Assembly-CSharp.csproj|solutionrelative:assets\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -33,11 +37,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "collectible.cs",
+              "DocumentMoniker": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\collectible.cs",
+              "RelativeDocumentMoniker": "Assets\\collectible.cs",
+              "ToolTip": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\collectible.cs",
+              "RelativeToolTip": "Assets\\collectible.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T10:24:17.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Animationstate.cs",
               "DocumentMoniker": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\Animationstate.cs",
               "RelativeDocumentMoniker": "Assets\\Animationstate.cs",
@@ -49,20 +66,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "movement.cs",
               "DocumentMoniker": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\movement.cs",
               "RelativeDocumentMoniker": "Assets\\movement.cs",
               "ToolTip": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\movement.cs",
               "RelativeToolTip": "Assets\\movement.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAYwFEAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAswIEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T10:41:16.21Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T10:41:16.21Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "movement.cs",
               "DocumentMoniker": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\simple modular human\\scripts\\movement.cs",
               "RelativeDocumentMoniker": "Assets\\simple modular human\\scripts\\movement.cs",
@@ -73,7 +89,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Test_script.cs",
               "DocumentMoniker": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\simple modular human\\scripts\\Test_script.cs",
               "RelativeDocumentMoniker": "Assets\\simple modular human\\scripts\\Test_script.cs",
@@ -85,7 +101,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PlayerMovement.cs",
               "DocumentMoniker": "C:\\Users\\Othman\\Documents\\Unity opdrachten\\Unityopdracht2\\Assets\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\PlayerMovement.cs",
@@ -96,7 +112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "movementinput.cs",
               "DocumentMoniker": "C:\\Users\\Othman\\Desktop\\unityopdracht2\\Assets\\movementinput.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Desktop\\unityopdracht2\\Assets\\movementinput.cs",

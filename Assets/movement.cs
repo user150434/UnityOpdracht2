@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
@@ -9,102 +8,123 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private float Sensitivity;
 
-    [SerializeField] private float speed, walk, run, crouch;
+    [SerializeField] private float walkSpeed = 5f, runSpeed = 10f, crouchSpeed = 2.5f;
     [SerializeField] private float jumpHeight = 3.0f;
+    [SerializeField] private float jumpBufferTime = 0.2f;
 
-    private Vector3 crouchScale, normalScale;
+    private Vector3 crouchScale = new Vector3(1, 0.75f, 1);
+    private Vector3 normalScale = Vector3.one;
     private Vector3 velocity;
     private float gravity = -9.81f;
+    private float lastJumpPressedTime = -1f;
 
-    public bool isMoving, isCrouching, isRunning;
-
+    private float currentSpeed;
+    private bool isGrounded;
     private float X, Y;
 
     private void Start()
     {
-        speed = walk;
-        crouchScale = new Vector3(1, .75f, 1);
-        normalScale = new Vector3(1, 1, 1);
-        cc = GetComponent<CharacterController>();
-        cc.enabled = true;
+        currentSpeed = walkSpeed;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        #region Camera Limitation Calculator
-        // Camera limitation variables
-        const float MIN_Y = -60.0f;
-        const float MAX_Y = 70.0f;
+        HandleCamera();
+        HandleMovement();
+        HandleJump();
+        UpdateAnimations();
+        ApplyGravity();
+    }
 
-        X += Input.GetAxis("Mouse X") * (Sensitivity * Time.deltaTime);
-        Y -= Input.GetAxis("Mouse Y") * (Sensitivity * Time.deltaTime);
+    private void HandleCamera()
+    {
+        const float MIN_Y = -60f, MAX_Y = 70f;
 
-        if (Y < MIN_Y)
-            Y = MIN_Y;
-        else if (Y > MAX_Y)
-            Y = MAX_Y;
-        #endregion
+        X += Input.GetAxis("Mouse X") * Sensitivity * Time.deltaTime;
+        Y -= Input.GetAxis("Mouse Y") * Sensitivity * Time.deltaTime;
+        Y = Mathf.Clamp(Y, MIN_Y, MAX_Y);
 
-        transform.localRotation = Quaternion.Euler(Y, X, 0.0f);
+        transform.localRotation = Quaternion.Euler(Y, X, 0);
+    }
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector3 forward = transform.forward * vertical;
-        Vector3 right = transform.right * horizontal;
+    private void HandleMovement()
+    {
+        isGrounded = cc.isGrounded;
+        Vector3 move = (transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal")).normalized;
 
-        Vector3 move = (forward + right).normalized;
+        Vector3 horizontalVelocity = move * currentSpeed;
+        velocity.x = horizontalVelocity.x;
+        velocity.z = horizontalVelocity.z;
 
-        // Apply movement
-        cc.SimpleMove(move * speed);
+        HandleSpeedChanges();
+    }
 
-        // Determines if the speed = run or walk
-        if (Input.GetKey(KeyCode.LeftShift ))
-            
+    private void HandleSpeedChanges()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            _animator.SetBool("idle", false);
-            _animator.SetBool("sprint",true);
-     
-            speed = run;
-            isRunning = true;
-        }
-        // Crouch
-        else if (Input.GetKey(KeyCode.LeftControl))
-        {
-            isCrouching = true;
-            isRunning = false;
-            speed = crouch;
+            currentSpeed = crouchSpeed;
             player.transform.localScale = crouchScale;
+        }
+        else if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentSpeed = runSpeed;
+            player.transform.localScale = normalScale;
         }
         else
         {
-            _animator.SetBool("idle", true);
-            _animator.SetBool("sprint", false);
-            isRunning = false;
-            isCrouching = false;
-            speed = walk;
+            currentSpeed = walkSpeed;
             player.transform.localScale = normalScale;
         }
+    }
 
-        // Jump
-        if (cc.isGrounded)
+    private void HandleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            lastJumpPressedTime = Time.time;
+
+        if (isGrounded)
         {
-            velocity.y = 0f; // Reset vertical velocity when grounded
+            velocity.y = -2f;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Time.time - lastJumpPressedTime <= jumpBufferTime)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                _animator.SetTrigger("Jump");
+                lastJumpPressedTime = -1f;
             }
         }
+    }
 
-        // Apply gravity
-        velocity.y += gravity * Time.deltaTime;
+    private void ApplyGravity()
+    {
+        if (!isGrounded)
+            velocity.y += gravity * Time.deltaTime;
 
-        // Move the character controller using velocity
         cc.Move(velocity * Time.deltaTime);
+    }
 
-        // Detects if the player is moving
-        isMoving = cc.velocity.sqrMagnitude > 0.0f ? true : false;
+    private void UpdateAnimations()
+    {
+        _animator.SetBool("Grounded", isGrounded);
+
+        if (isGrounded)
+        {
+            bool isMoving = cc.velocity.magnitude > 0.1f;
+
+            _animator.SetBool("Sprint", isMoving && currentSpeed == runSpeed);
+            _animator.SetBool("Walk", isMoving && currentSpeed == walkSpeed);
+            _animator.SetBool("Crouch", currentSpeed == crouchSpeed);
+            _animator.SetBool("Idle", !isMoving);
+        }
+        else
+        {
+            _animator.SetBool("Sprint", false);
+            _animator.SetBool("Walk", false);
+            _animator.SetBool("Crouch", false);
+            _animator.SetBool("Idle", false);
+        }
     }
 }
